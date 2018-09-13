@@ -1,4 +1,4 @@
-def checkSyntax(s):
+def syntaxValid(s):
 	""" Checks if string s has valid syntax for horizontal tree.
 	Args:
 		s: input string to test for proper syntax.
@@ -28,7 +28,7 @@ def checkSyntax(s):
 			#check if delim is valid:
 			if i == 0 or i == len(s)-1 or s[i-1] == '[' or s[i+1] != ' ':
 				return False
-	#if stack empty at end of string, we have valid brackets, hence s is valid:
+	#if stack empty, s is valid:
 	return len(bracketStack) == 0
 
 def getHorizontalTreeString(s):
@@ -56,8 +56,21 @@ def getHorizontalTreeString(s):
 			outputBuffer.append(currentChar)
 	return "".join(outputBuffer)
 
-s = "[1, 2, [A, B, C, [5^&, )()6, [he, hello], 7], D, E], 3, 4]" 
-print(checkSyntax(s))
-print(getHorizontalTreeString(s))
+def printAsHorizontalTree(s):
+	""" Helper for Horizontal Tree
+	Args: s: input string to print as a horizontal tree
+	"""
+	ERROR_MSG = "Invalid!"
+	if syntaxValid(s):
+		print(getHorizontalTreeString(s))
+	else:
+		print(ERROR_MSG)
+
+def main():
+	s = "[1, 2, [A, B, C, [5, 6]]]" 
+	printAsHorizontalTree(s)
+
+if __name__ == "__main__":
+    main()
 
 
