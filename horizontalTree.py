@@ -67,8 +67,9 @@ def printAsHorizontalTree(s):
 		print(ERROR_MSG)
 
 def main():
-	s = "[1, 2, [A, B, C, [5, 6]]]"
-	printAsHorizontalTree(s)
+	while (True):
+		s = input("Enter a string for a horizontal tree: ")
+		printAsHorizontalTree(s)
 
 if __name__ == "__main__":
     main()
