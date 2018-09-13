@@ -1,21 +1,63 @@
 def checkSyntax(s):
-	""" Checks for proper syntax:
-		Returns True if a valid string, otherwise False:
+	""" Checks if string s has valid syntax for horizontal tree.
+	Args:
+		s: input string to test for proper syntax.
+	Returns:
+		True if s has valid syntax, False otherwise.
 	"""
 	if not s or type(s) != str or s[0] != '[':
 		return False
 
+	#using stack to check for matching brackets
+	#push '[' and pop for ']'
 	bracketStack = []
 	for i in range(len(s)):
 		currentChar = s[i]
 		if currentChar == '[':
+			#check for there is a delim before open bracket or trying to double nest:
+			if i != 0 and s[i-1] == '[' or i > 1 and s[i-2] != ',':
+				return False
 			bracketStack.append('[')
 		elif currentChar == ']':
-			if bracketStack:
+			#check if stack is prematurely empty or no delim after closed bracket:
+			if not bracketStack or (i != len(s)-1 and s[i+1] != ']' and s[i+1] != ','):
+				return False 
+			else: 
 				bracketStack.pop()
-			else:
-				return False
 		elif currentChar == ',':
+			#check if delim is valid:
 			if i == 0 or i == len(s)-1 or s[i-1] == '[' or s[i+1] != ' ':
 				return False
+	#if stack empty at end of string, we have valid brackets, hence s is valid:
 	return len(bracketStack) == 0
+
+def getHorizontalTreeString(s):
+	""" Computes a string of characters that when printed displays horizontal tree of s
+	Args:
+		s: input string to print as a horizontal tree
+	Returns:
+		A string of characters
+	"""
+	outputBuffer = []
+	nestingLevel = -1
+	for i in range(len(s)):
+		currentChar = s[i]
+		if currentChar == '[':
+			nestingLevel += 1
+			for _ in range(nestingLevel):
+				outputBuffer.append(' ')
+		elif currentChar == ']':
+			nestingLevel -= 1
+		elif currentChar == ',':
+			outputBuffer.append('\n')
+			for _ in range(nestingLevel):
+				outputBuffer.append(' ')
+		elif currentChar != ' ':
+			outputBuffer.append(currentChar)
+	return "".join(outputBuffer)
+
+s = "[1, 2, [A, B, C, [5^&, )()6, [he, hello], 7], D, E], 3, 4]" 
+print(checkSyntax(s))
+print(getHorizontalTreeString(s))
+
+
