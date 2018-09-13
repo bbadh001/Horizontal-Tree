@@ -1,5 +1,19 @@
 # Horizontal Tree
 
+## How to Run:
+
+To run:
+```
+git clone https://github.com/bbadh001/Horizontal-Tree
+cd Horizontal-Tree
+python horizontalTree.py
+```
+
+To run tests:
+```
+python -m unittest horizontalTree_test.py
+```
+
 ## Assumptions:
 
 All of the following must be true for an input string to be valid:
@@ -12,7 +26,7 @@ All of the following must be true for an input string to be valid:
 
 ## The Algorithm: 
 
-The algorithm works in two passes: the first pass checks for proper syntax and the second deals with the print logic. While we could certainly do this is in one pass, I found it to be much clearer to seperate the syntax-checking from the printing logic entirely. Of course, if we do expect very long strings, we could condense the algorithm into a single pass with the sacrifice of some clarity. 
+The algorithm works in two passes: the first pass checks for proper syntax and the second deals with the print logic. While we could certainly do this is in one pass, I found it to be much clearer to separate the syntax-checking from the printing logic entirely. Of course, if we do expect very long strings, we could condense the algorithm into a single pass with the sacrifice of some clarity. 
 
 Time complexity: Let N be the length of the input string S. For the first pass, we simply iterate through S checking proper syntax. On the second pass, we iterate through S again, appending to an output buffer on every iteration (which is an amortized constant operation). This gives us a linear runtime, hence O(N).
 
